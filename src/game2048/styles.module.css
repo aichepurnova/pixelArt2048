@@ -1,0 +1,114 @@
+:root {
+  --primary-color: #7a8b99;
+  --secondary-corlor: #a9ddd6;
+  --value0-color: #a9ddd6;
+  --value2-color: #91adc2;
+  --value4-color: #9ba0bc;
+  --value8-color: #aeacc2;
+  --value16-color: #bdbdbd;
+  --value32-color: #bdbdbd;
+  --value64-color: #bdbdbd;
+  --value128-color: #bdbdbd;
+  --value256-color: #bdbdbd;
+  --value512-color: #bdbdbd;
+  --value1024-color: #bdbdbd;
+  --value2048-color: #bdbdbd;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5em;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5em;
+}
+
+button {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.iconBtn {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.iconBtn:hover {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.tile-grid {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  background-color: rgb(241, 226, 151);
+  border-radius: 5px;
+  padding: 10px;
+  background-color: var(--primary-color);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  width: 5em;
+  height: 5em;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  /* background-image: url("../assets/tile_0058.png"); */
+}
+
+.tile.empty {
+  background-color: var(--secondary-corlor);
+}
+
+.tile.value {
+  background-color: var(--primary-color);
+}
