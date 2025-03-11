@@ -1,18 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 :root {
-  --primary-color: #7a8b99;
-  --secondary-corlor: #a9ddd6;
-  --value0-color: #a9ddd6;
-  --value2-color: #91adc2;
-  --value4-color: #9ba0bc;
-  --value8-color: #aeacc2;
-  --value16-color: #bdbdbd;
-  --value32-color: #bdbdbd;
-  --value64-color: #bdbdbd;
-  --value128-color: #bdbdbd;
-  --value256-color: #bdbdbd;
-  --value512-color: #bdbdbd;
-  --value1024-color: #bdbdbd;
-  --value2048-color: #bdbdbd;
+  --primary-color: #f7e6d5; /* Warm pastel peach */
+  --tile-0-color: #e6d5c3; /* Muted beige */
+  
+  /* Distinct pastel shades */
+  --tile-2-color: #fcefe3; /* Soft cream */
+  --tile-4-color: #f8dac5; /* Light pastel orange */
+  --tile-8-color: #f5b893; /* Soft coral peach */
+  
+  /* Medium pastel shades */
+  --tile-16-color: #f8a2a2; /* Gentle salmon pink */
+  --tile-32-color: #e98c8c; /* Muted warm rose */
+  --tile-64-color: #df7373; /* Pastel red */
+  
+  /* Vibrant pastel shades */
+  --tile-128-color: #f7c4de; /* Light cherry blossom pink */
+  --tile-256-color: #e9a6d2; /* Soft lavender-pink */
+  --tile-512-color: #c98dd4; /* Muted orchid purple */
+  
+  /* Deep pastel shades */
+  --tile-1024-color: #9d94dc; /* Dusty lilac */
+  --tile-2048-color: #7b91cf; /* Periwinkle pastel blue */
+  
+  /* Super tiles (Beyond 2048) */
+  --tile-super-color: #5e709a; /* Muted twilight blue */
+}
+
+body {
+   font-family: "Press Start 2P", cursive;
+   background: linear-gradient(180deg, #f7d6e0 0%, #f8e6d1 30%, #c5dff8 70%, #b2a4ff 100%);
+   background-repeat: no-repeat;
+   background-attachment: fixed;
 }
 
 .container {
@@ -30,7 +49,7 @@
 }
 
 button {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Press Start 2P", system-ui;
   font-size: 16px;
   letter-spacing: 2px;
   text-decoration: none;
@@ -54,8 +73,11 @@ button:hover {
   left: 5px;
 }
 
+.btnNewGame {
+  background-color: #ffffff00;
+}
+
 .iconBtn {
-  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   letter-spacing: 2px;
   text-decoration: none;
@@ -86,6 +108,7 @@ button:hover {
   grid-template-rows: repeat(4, 1fr);
   gap: 10px;
   background-color: rgb(241, 226, 151);
+  border: #000 solid 1px;
   border-radius: 5px;
   padding: 10px;
   background-color: var(--primary-color);
@@ -100,8 +123,11 @@ button:hover {
   align-items: center;
   font-size: 12px;
   font-weight: bold;
+  font-family: "Press Start 2P", cursive;
+  /* border: #000 solid 1px; */
   border-radius: 5px;
   cursor: pointer;
+  box-shadow:0 0 7px rgb(227 137 137 / 30%);
   /* background-image: url("../assets/tile_0058.png"); */
 }
 

@@ -1,6 +1,5 @@
-import { use, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import TileGrid from "./TileGrid";
-import { TileProps } from "./types";
 import {
   addNewTile,
   checkGameOver,
@@ -10,18 +9,14 @@ import {
 } from "./utils";
 import { gameReducer, loadState } from "../functional/reducer";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons-react";
-import CSS from "./styles.module.css";
-
-interface GameStateProps {
-  tiles: TileProps[];
-  points: number;
-  bestScore: number;
-}
+import CSS from "./game2048.module.css";
+import Alert from "../functional/alert/Alert";
 
 const defState = {
   tiles: generateNewTiles(16, 2),
   points: 0,
   bestScore: 0,
+  gameOver: false,
 };
 
 const initialState = {
@@ -36,14 +31,25 @@ function Game2048() {
     loadState("gameState", initialState)
   );
 
+  const [alert, setAlert] = useState({
+    show: state.present.gameOver,
+    message: "",
+    type: "",
+  });
+
   useEffect(() => {
     localStorage.setItem("gameState", JSON.stringify(state.present));
   }, [state]);
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    let keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-    if (keys.includes(e.key)) {
-      let key = e.key.toLowerCase().replace("arrow", "");
+    const keys = ["up", "down", "left", "right"]; // Arrow keys
+    const wasdMapping = { w: "up", s: "down", a: "left", d: "right" };
+    let key = e.key.toLowerCase().replace("arrow", "");
+    if (wasdMapping[key as keyof typeof wasdMapping]) {
+      key = wasdMapping[key as keyof typeof wasdMapping];
+    }
+
+    if (keys.includes(key)) {
       let result = moveTiles(state.present.tiles, key);
       let newTiles = result.newTiles;
       let addPoints = result.addPoints;
@@ -51,15 +57,21 @@ function Game2048() {
       if (isChanged) {
         newTiles = addNewTile(newTiles);
       }
-      if (checkGameOver(newTiles)) {
-        alert("Game Over");
+      let gameOver = checkGameOver(newTiles);
+      if (gameOver) {
+        setAlert({ show: true, message: "Game Over", type: "warning" });
       }
       let newPoints =
         state.present.points + addPoints.reduce((a, b) => a + b, 0);
       let bestScore = Math.max(state.present.bestScore, newPoints);
       dispatch({
         type: "MOVE",
-        payload: { tiles: newTiles, points: newPoints, bestScore: bestScore },
+        payload: {
+          tiles: newTiles,
+          points: newPoints,
+          bestScore: bestScore,
+          gameOver: gameOver,
+        },
       });
     }
   };
@@ -73,13 +85,27 @@ function Game2048() {
 
   return (
     <div className={CSS["container"]}>
+      <Alert
+        show={alert.show}
+        message={alert.message}
+        type="warning"
+        handleClose={() =>
+          setAlert({ show: false, message: "Closed", type: "" })
+        }
+      ></Alert>
       <h1>2048</h1>
       <div className={CSS["rowContainer"]}>
         <IconArrowBackUp
           className={CSS["iconBtn"]}
-          onClick={() => dispatch({ type: "UNDO" })}
+          onClick={() => {
+            dispatch({ type: "UNDO" });
+            if (alert.show) {
+              setAlert({ show: false, message: "Closed", type: "" });
+            }
+          }}
         ></IconArrowBackUp>
         <button
+          className={CSS["btnNewGame"]}
           onClick={() =>
             dispatch({
               type: "RESET",

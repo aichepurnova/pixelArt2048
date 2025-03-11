@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TileProps } from "./types";
 import TileSingle from "./TileSingle";
 
-import CSS from "./styles.module.css";
+import CSS from "./game2048.module.css";
 
 function TileGrid({ tiles }: { tiles: Array<TileProps> }) {
   return (
@@ -14,6 +14,7 @@ function TileGrid({ tiles }: { tiles: Array<TileProps> }) {
             x={t.x}
             y={t.y}
             value={t.value}
+            isNew={t.isNew}
           ></TileSingle>
         ))}
       </div>

@@ -88,8 +88,10 @@ export const addNewTile = (tiles: TileProps[]) => {
   tiles.map((t) => {
     if (t.x === randomTile.x && t.y === randomTile.y) {
       t.value = 2;
+      t.isNew = true
     }
   });
+  console.log('add new tile', tiles); 
   return tiles;
 };
 
@@ -116,7 +118,6 @@ export const moveTiles = (
   let points: number[] = [];
 
   for (let i = 0; i < 4; i++) {
-    let line = grid[i];
     let result = sumRepeatedNumbers(grid[i], reverse, points);
     grid[i] = result.newLine;
     points = result.points;
