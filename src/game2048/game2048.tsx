@@ -11,6 +11,8 @@ import { gameReducer, loadState } from "../functional/reducer";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons-react";
 import CSS from "./game2048.module.css";
 import Alert from "../functional/alert/Alert";
+import useKeyboardControls from "../functional/useKeyboardControls";
+import useSwipe from "../functional/useSwipe";
 
 const defState = {
   tiles: generateNewTiles(16, 2),
@@ -41,48 +43,33 @@ function Game2048() {
     localStorage.setItem("gameState", JSON.stringify(state.present));
   }, [state]);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const keys = ["up", "down", "left", "right"]; // Arrow keys
-    const wasdMapping = { w: "up", s: "down", a: "left", d: "right" };
-    let key = e.key.toLowerCase().replace("arrow", "");
-    if (wasdMapping[key as keyof typeof wasdMapping]) {
-      key = wasdMapping[key as keyof typeof wasdMapping];
+  const handleMove = (direction: string) => {
+    let result = moveTiles(state.present.tiles, direction);
+    let newTiles = result.newTiles;
+    let addPoints = result.addPoints;
+    let isChanged = !compareTwoArrayOfObjects(newTiles, state.present.tiles);
+    if (isChanged) {
+      newTiles = addNewTile(newTiles);
     }
-
-    if (keys.includes(key)) {
-      let result = moveTiles(state.present.tiles, key);
-      let newTiles = result.newTiles;
-      let addPoints = result.addPoints;
-      let isChanged = !compareTwoArrayOfObjects(newTiles, state.present.tiles);
-      if (isChanged) {
-        newTiles = addNewTile(newTiles);
-      }
-      let gameOver = checkGameOver(newTiles);
-      if (gameOver) {
-        setAlert({ show: true, message: "Game Over", type: "warning" });
-      }
-      let newPoints =
-        state.present.points + addPoints.reduce((a, b) => a + b, 0);
-      let bestScore = Math.max(state.present.bestScore, newPoints);
-      dispatch({
-        type: "MOVE",
-        payload: {
-          tiles: newTiles,
-          points: newPoints,
-          bestScore: bestScore,
-          gameOver: gameOver,
-        },
-      });
+    let gameOver = checkGameOver(newTiles);
+    if (gameOver) {
+      setAlert({ show: true, message: "Game Over", type: "warning" });
     }
+    let newPoints = state.present.points + addPoints.reduce((a, b) => a + b, 0);
+    let bestScore = Math.max(state.present.bestScore, newPoints);
+    dispatch({
+      type: "MOVE",
+      payload: {
+        tiles: newTiles,
+        points: newPoints,
+        bestScore: bestScore,
+        gameOver: gameOver,
+      },
+    });
   };
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
+  useKeyboardControls(handleMove);
+  useSwipe(handleMove);
   return (
     <div className={CSS["container"]}>
       <Alert

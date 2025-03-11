@@ -91,7 +91,6 @@ export const addNewTile = (tiles: TileProps[]) => {
       t.isNew = true
     }
   });
-  console.log('add new tile', tiles); 
   return tiles;
 };
 
@@ -101,7 +100,6 @@ export const moveTiles = (
 ): { newTiles: TileProps[]; addPoints: number[] } => {
   const isVertical = direction === "up" || direction === "down";
   const reverse = direction === "up" || direction === "left";
-  console.log(direction, isVertical, reverse);
 
   // Create a 4x4 grid for easier manipulation
   const grid = Array.from({ length: 4 }, () => Array(4).fill(null));

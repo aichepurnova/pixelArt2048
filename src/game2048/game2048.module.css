@@ -108,7 +108,7 @@ button:hover {
   grid-template-rows: repeat(4, 1fr);
   gap: 10px;
   background-color: rgb(241, 226, 151);
-  border: #000 solid 1px;
+  /* border: #000 solid 1px; */
   border-radius: 5px;
   padding: 10px;
   background-color: var(--primary-color);
