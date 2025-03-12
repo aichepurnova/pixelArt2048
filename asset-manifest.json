@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/bored/static/css/main.be639a8f.css",
+    "main.js": "/bored/static/js/main.cb810013.js",
+    "static/media/cloud.png": "/bored/static/media/cloud.498b1565659a0240ac13.png",
+    "index.html": "/bored/index.html",
+    "main.be639a8f.css.map": "/bored/static/css/main.be639a8f.css.map",
+    "main.cb810013.js.map": "/bored/static/js/main.cb810013.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be639a8f.css",
+    "static/js/main.cb810013.js"
+  ]
+}
